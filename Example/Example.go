@@ -1,5 +1,5 @@
-// app/app.go
-package app
+// Example/Example.go
+package Example
 
 import (
 	"fmt"
