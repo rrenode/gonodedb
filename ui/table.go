@@ -4,7 +4,9 @@ import (
 	"os"
 
 	"github.com/rrenode/gonodedb/model"
+	"github.com/rrenode/gonodedb/store"
 
+	"github.com/dgraph-io/badger/v4"
 	"github.com/fatih/color"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/jedib0t/go-pretty/v6/text"
@@ -27,4 +29,13 @@ func PrintRepoArray(repos []model.Repo) {
 	}
 
 	t.Render()
+}
+
+func PrintDB(db *badger.DB) error {
+	repos, err := store.LoadAllRepos(db)
+	if err != nil {
+		return err
+	}
+	PrintRepoArray(repos)
+	return nil
 }
