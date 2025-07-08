@@ -4,10 +4,9 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/rrenode/gonodedb/model"
-
 	"github.com/dgraph-io/badger/v4"
 	"github.com/lithammer/fuzzysearch/fuzzy"
+	"github.com/rrenode/gonodedb/model"
 )
 
 type MatchResult struct {

@@ -2,6 +2,7 @@ package ui
 
 import (
 	"os"
+	"strings"
 
 	"github.com/rrenode/gonodedb/model"
 	"github.com/rrenode/gonodedb/store"
@@ -12,9 +13,11 @@ import (
 	"github.com/jedib0t/go-pretty/v6/text"
 )
 
-func PrintRepoArray(repos []model.Repo) {
+func BuildRepoTable(repos []model.Repo) string {
+	var b strings.Builder
+
 	t := table.NewWriter()
-	t.SetOutputMirror(os.Stdout)
+	t.SetOutputMirror(&b)
 	t.SetStyle(table.StyleColoredBright)
 	t.Style().Format.Header = text.FormatTitle
 	t.AppendHeader(table.Row{"Name", "Alias", "ID", "Path"})
@@ -29,6 +32,12 @@ func PrintRepoArray(repos []model.Repo) {
 	}
 
 	t.Render()
+	return b.String()
+}
+
+func PrintRepoArray(repos []model.Repo) {
+	out := BuildRepoTable(repos)
+	_, _ = os.Stdout.WriteString(out)
 }
 
 func PrintDB(db *badger.DB) error {
